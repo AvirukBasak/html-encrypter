@@ -180,8 +180,8 @@ ${data}
 
     const argv = process.argv;
     if (!argv[2]) {
-        console.error('encrypthtml: no args provided'
-            + 'USAGE:'
+        console.error('encrypthtml: no args provided\n'
+            + 'USAGE:\n'
             + '    encrypthtml.js [filePath] [passwd]');
         process.exit(1);
     }
