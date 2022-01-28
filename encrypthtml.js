@@ -6,9 +6,9 @@
  * @param { string } The string to hash
  * @return { string } Hex string
  */
-const sha1sum = function(string) {
+const sha256sum = function(string) {
     const crypto = require('crypto');
-    const shasum = crypto.createHash('sha1');
+    const shasum = crypto.createHash('sha256');
     shasum.update(string);
     return shasum.digest('hex');
 }
@@ -69,16 +69,16 @@ const xorDecrypt = function(input, key) {
 /**
  * generates output from templates
  * @param { string } data Hex string encrypted data
- * @param { string } sha1hash SHA1 hash of password
+ * @param { string } sha256hash SHA256 hash of password
  */
-const genOutputCode = (data, sha1Passwd) => (
+const genOutputCode = (data, sha256Passwd) => (
 `<!DOCTYPE html>
 <html>
 <head>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/google-closure-library@20220104.0.0/closure/goog/base.js"></script>
     <script type="text/javascript">
         goog.require('goog.crypt');
-        goog.require('goog.crypt.Sha1');
+        goog.require('goog.crypt.Sha256');
         goog.require('goog.crypt.Sha512');
     </script>
     <script type="text/javascript">
@@ -86,10 +86,10 @@ const genOutputCode = (data, sha1Passwd) => (
          * @param { string } The string to hash
          * @return { string } Hex string
          */
-        const sha1sum = function(string) {
-            const sha1 = new goog.crypt.Sha1();
-            sha1.update(string);
-            const hash = sha1.digest();
+        const sha256sum = function(string) {
+            const sha256 = new goog.crypt.Sha256();
+            sha256.update(string);
+            const hash = sha256.digest();
             return goog.crypt.byteArrayToHex(hash);
         }
         /**
@@ -150,7 +150,7 @@ const genOutputCode = (data, sha1Passwd) => (
 
         // required data
         const HtmlRoot = document.getElementsByTagName('html')[0];
-        const sha1Passwd = '${sha1Passwd}';
+        const sha256Passwd = '${sha256Passwd}';
 
         // hex encoded and encrypted data
         const encryptedData = (\x60
@@ -161,8 +161,8 @@ ${data}
         const inputPasswd = prompt('Enter password');
 
         (() => {
-            const sha1InputPasswd = sha1sum(inputPasswd);
-            if (sha1Passwd !== sha1InputPasswd) {
+            const sha256InputPasswd = sha256sum(inputPasswd);
+            if (sha256Passwd !== sha256InputPasswd) {
                 alert('Password wrong. Authentication failed.');
                 return;
             }
@@ -196,11 +196,11 @@ ${data}
     }
 
     // These sha hashes are of the password
-    const sha1Passwd = sha1sum(passwd);
+    const sha256Passwd = sha256sum(passwd);
     const sha512key = sha512sum(passwd);
 
-    console.error('Input:\n    size: ' + inputData.length + ' B\n    hash: ' + sha1sum(inputData));
-    console.error('Password:\n    text: ' + passwd + '\n    hash: ' + sha1Passwd);
+    console.error('Input size: ' + inputData.length + ' B');
+    console.error('Password:\n  text: ' + passwd + '\n  hash: ' + sha256Passwd);
 
     const encryptedData = xorEncrypt(inputData, sha512key);
 
@@ -212,6 +212,6 @@ ${data}
             outputBuffer += '\n';
         }
     }
-    console.log(genOutputCode(outputBuffer, sha1Passwd));
+    console.log(genOutputCode(outputBuffer, sha256Passwd));
 
 })();
