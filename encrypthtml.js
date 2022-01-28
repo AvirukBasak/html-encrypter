@@ -189,7 +189,9 @@ ${data}
     const inputData = String(require('fs').readFileSync(argv[2]));
     const passwd = argv[3];
     if (!passwd) {
-        console.error('encrypthtml: no password provided');
+        console.error('encrypthtml: no password provided\n'
+            + 'USAGE:\n'
+            + '    encrypthtml.js [filePath] [passwd]');
         process.exit(2);
     }
 
