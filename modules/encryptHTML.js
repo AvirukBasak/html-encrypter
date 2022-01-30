@@ -105,7 +105,7 @@ exports.encrypt = function() {
             outputBuffer += '\n';
         }
     }
-    console.log(Template.use('./template.html', {
+    console.log(Template.use('../templates/template.html', {
         sha256Passwd,
         data: outputBuffer,
     }));
