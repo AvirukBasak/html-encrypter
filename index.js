@@ -7,9 +7,9 @@ const Base64Img = require('./modules/base64Img');
 
 const { helpTxt } = require('./modules/helpTxt');
 
-(function main() {
-    !process.argv[2] && ( process.argv[2] = '' );
-    switch (process.argv[2].toLowerCase()) {
+(function main(args) {
+    !args[2] && ( args[2] = '' );
+    switch (args[2].toLowerCase()) {
         case 'h':
         case 'help': {
             console.log(helpTxt);
@@ -17,12 +17,12 @@ const { helpTxt } = require('./modules/helpTxt');
         }
         case '64img':
         case 'base64img': {
-            console.log(Base64Img.get());
+            console.log(Base64Img.get(args));
             break;
         }
         case 'ehtml':
         case 'encryptHtml': {
-            EncryptHTML.encrypt();
+            EncryptHTML.encrypt(args);
             break;
         }
         default: {
@@ -30,4 +30,4 @@ const { helpTxt } = require('./modules/helpTxt');
             process.exit(1);
         }
     }
-})();
+})(process.argv);

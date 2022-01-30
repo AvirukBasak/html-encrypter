@@ -17,15 +17,14 @@ const isUrlValid = function(string) {
     }
 }
 
-exports.get = function() {
+exports.get = function(args) {
 
-    const argv = process.argv;
-    if (!argv[3]) {
+    if (!args[3]) {
         console.log('base26img: no path\n' + helpTxt);
         process.exit(2);
     }
 
-    let filePath = isUrlValid(argv[3]) || argv[3];
+    let filePath = isUrlValid(args[3]) || args[3];
     const data = fs.readFileSync(filePath).toString('base64');
 
     let outputBuffer = '';

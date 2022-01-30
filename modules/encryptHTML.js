@@ -68,20 +68,19 @@ const xorDecrypt = function(input, key) {
     return text;
 }
 
-exports.encrypt = function() {
+exports.encrypt = function(args) {
 
-    const argv = process.argv;
-    if (!argv[3]) {
+    if (!args[3]) {
         console.log('encryptHtml: no arguments\n' + helpTxt);
         process.exit(3);
     }
-    const passwd = argv[4];
+    const passwd = args[4];
     if (!passwd) {
         console.log('encryptHtml: no password\n' + helpTxt);
         process.exit(4);
     }
 
-    const inputData = String(fs.readFileSync(argv[3]));
+    const inputData = String(fs.readFileSync(args[3]));
 
     // These sha hashes are of the password
     const sha256Passwd = sha256sum(passwd);
@@ -100,7 +99,7 @@ exports.encrypt = function() {
             outputBuffer += '\n';
         }
     }
-    console.log(Template.use('./templates/template.html', {
+    console.log(Template.use('./templates/encryptHTML.html', {
         sha256Passwd,
         data: outputBuffer,
     }));
