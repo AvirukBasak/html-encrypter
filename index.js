@@ -10,6 +10,7 @@ const { helpTxt } = require('./modules/helpTxt');
 (() => {
     !process.argv[2] && ( process.argv[2] = '' );
     switch (process.argv[2].toLowerCase()) {
+        case 'h':
         case 'help': {
             console.log(helpTxt);
             break;
