@@ -17,7 +17,7 @@ const { helpTxt } = require('./modules/helpTxt');
         }
         case '64img':
         case 'base64img': {
-            Base64Img.get();
+            console.log(Base64Img.get());
             break;
         }
         case 'ehtml':
