@@ -2,8 +2,19 @@
 Encrypt an HTML document using password.
 
 ## Usage
+
+#### Code
 ```bash
-$ ./encrypthtml.js [filePath] [passwd] > output.html
+$ npm start ehtml [filePath] [passwd] > output.html
+```
+
+#### Help text
+```
+USAGE:
+    index 64img | base64img [url] > file
+        Download an image and convert to b64
+    index ehtml | encryptHtml [filePath] [passwd] > file
+        Encrypt an HTML document
 ```
 
 ## Password
