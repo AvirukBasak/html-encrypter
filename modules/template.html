@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/google-closure-library@20220104.0.0/closure/goog/base.js"></script>
+    <script type="text/javascript">
+        goog.require('goog.crypt');
+        goog.require('goog.crypt.Sha256');
+        goog.require('goog.crypt.Sha512');
+    </script>
+    <script type="text/javascript">
+        /**
+         * @param { string } The string to hash
+         * @return { string } Hex string
+         */
+        const sha256sum = function(string) {
+            const sha256 = new goog.crypt.Sha256();
+            sha256.update(string);
+            const hash = sha256.digest();
+            return goog.crypt.byteArrayToHex(hash);
+        }
+        /**
+         * @param { string } The string to hash
+         * @return { string } Hex string
+         */
+        const sha512sum = function(string) {
+            const sha512 = new goog.crypt.Sha512();
+            sha512.update(string);
+            const hash = sha512.digest();
+            return goog.crypt.byteArrayToHex(hash);
+        }
+    </script>
+    <script type="text/javascript">
+        /**
+         * @param { string } input The string to encrypt
+         * @param { string } key Encryption key
+         * @return { string } hex cipher
+         */
+        const xorEncrypt = function(input, key) {
+            let cipher = '';
+            while (key.length < input.length) {
+                key += key;
+            }
+            for (let i = 0; i < input.length; i++) {
+                const value1 = input[i].charCodeAt(0);
+                const value2 = key[i].charCodeAt(0);
+                const xorValue = value1 ^ value2;
+                let xorValueAsHexString = xorValue.toString(36);
+                if (xorValueAsHexString.length < 2) {
+                    xorValueAsHexString = "0" + xorValueAsHexString;
+                }
+                cipher += xorValueAsHexString;
+            }
+            return cipher;
+        }
+        /**
+         * @param { string } input The string to decrypt
+         * @param { string } key Encryption key
+         * @return { string } plain text
+         */
+        const xorDecrypt = function(input, key) {
+            let text = '';
+            while (key.length < input.length / 2) {
+                key += key;
+            }
+            for (let i = 0; i < input.length; i += 2) {
+                const hexValueString = input.substring(i, i + 2);
+                const value1 = parseInt(hexValueString, 36);
+                const value2 = key.charCodeAt(i / 2);
+                const xorValue = value1 ^ value2;
+                text += String.fromCharCode(xorValue);
+            }
+            return text;
+        }
+    </script>
+    <script type="text/javascript">
+
+        // required data
+        const HtmlRoot = document.getElementsByTagName('html')[0];
+        const sha256Passwd = '{{sha256Passwd}}';
+
+        // hex encoded and encrypted data
+        const encryptedData = (`
+{{data}}
+        `).replace(/\\s|\\n/g, '');
+
+        // input password
+        const inputPasswd = prompt('Enter password');
+
+        (() => {
+            const sha256InputPasswd = sha256sum(inputPasswd);
+            if (sha256Passwd !== sha256InputPasswd) {
+                alert('Password wrong. Authentication failed.');
+                return;
+            }
+            const sha512key = sha512sum(inputPasswd);
+            let decryptedData = xorDecrypt(encryptedData, sha512key);
+            HtmlRoot.innerHTML = decryptedData;
+        })();
+
+    </script>
+</head>
+</html>
