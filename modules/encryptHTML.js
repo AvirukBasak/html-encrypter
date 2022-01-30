@@ -3,6 +3,7 @@
 const fs = require('fs');
 const crypto = require('crypto');
 
+const { helpTxt } = require('./helpTxt');
 const Template = require('./template');
 
 /**
@@ -71,20 +72,14 @@ exports.encrypt = function() {
 
     const argv = process.argv;
     if (!argv[3]) {
-        console.log('encryptHtml: no arguments\n'
-            + 'USAGE:\n'
-            + '    index base64img   [url] > file                --  Download an image and convert to b64\n'
-            + '    index encryptHtml [filePath] [passwd] > file  --  Encrypt an HTML document\n');
+        console.log('encryptHtml: no arguments\n' + helpTxt);
         process.exit(2);
     }
 
-    const inputData = String(fs.readFileSync(argv[2]));
+    const inputData = String(fs.readFileSync(argv[3]));
     const passwd = argv[4];
     if (!passwd) {
-        console.log('encryptHtml: no password\n'
-            + 'USAGE:\n'
-            + '    index base64img   [url] > file                --  Download an image and convert to b64\n'
-            + '    index encryptHtml [filePath] [passwd] > file  --  Encrypt an HTML document\n');
+        console.log('encryptHtml: no password\n' + helpTxt);
         process.exit(3);
     }
 
@@ -105,7 +100,7 @@ exports.encrypt = function() {
             outputBuffer += '\n';
         }
     }
-    console.log(Template.use('../templates/template.html', {
+    console.log(Template.use('./templates/template.html', {
         sha256Passwd,
         data: outputBuffer,
     }));

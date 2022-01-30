@@ -5,12 +5,13 @@
 const EncryptHTML = require('./modules/encryptHTML');
 const Base64Img = require('./modules/base64Img');
 
+const { helpTxt } = require('./modules/helpTxt');
+
 (() => {
+    !process.argv[2] && ( process.argv[2] = '' );
     switch (process.argv[2].toLowerCase()) {
         case 'help': {
-            console.log('USAGE:\n'
-                + '    index base64img   [url] > file                --  Download an image and convert to b64\n'
-                + '    index encryptHtml [filePath] [passwd] > file  --  Encrypt an HTML document\n');
+            console.log(helpTxt);
             break;
         }
         case '64img':
@@ -20,14 +21,12 @@ const Base64Img = require('./modules/base64Img');
         }
         case 'ehtml':
         case 'encryptHtml': {
-            EncryptHtml.encrypt();
+            EncryptHTML.encrypt();
             break;
         }
         default: {
-            console.log('error: invalid argument\n'
-                + 'USAGE:\n'
-                + '    index base64img   [url] > file                --  Download an image and convert to b64\n'
-                + '    index encryptHtml [filePath] [passwd] > file  --  Encrypt an HTML document\n');
+            console.log('error: invalid argument\n' + helpTxt);
             process.exit(1);
         }
+    }
 })();
