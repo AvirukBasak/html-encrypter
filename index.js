@@ -7,7 +7,7 @@ const Base64Img = require('./modules/base64Img');
 
 const { helpTxt } = require('./modules/helpTxt');
 
-(() => {
+(function main() {
     !process.argv[2] && ( process.argv[2] = '' );
     switch (process.argv[2].toLowerCase()) {
         case 'h':

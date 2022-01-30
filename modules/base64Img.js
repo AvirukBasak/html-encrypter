@@ -21,7 +21,7 @@ exports.get = function() {
 
     const argv = process.argv;
     if (!argv[3]) {
-        console.log('encryptHtml: no path\n' + helpTxt);
+        console.log('base26img: no path\n' + helpTxt);
         process.exit(2);
     }
 

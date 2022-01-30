@@ -73,15 +73,15 @@ exports.encrypt = function() {
     const argv = process.argv;
     if (!argv[3]) {
         console.log('encryptHtml: no arguments\n' + helpTxt);
-        process.exit(2);
+        process.exit(3);
     }
-
-    const inputData = String(fs.readFileSync(argv[3]));
     const passwd = argv[4];
     if (!passwd) {
         console.log('encryptHtml: no password\n' + helpTxt);
-        process.exit(3);
+        process.exit(4);
     }
+
+    const inputData = String(fs.readFileSync(argv[3]));
 
     // These sha hashes are of the password
     const sha256Passwd = sha256sum(passwd);
