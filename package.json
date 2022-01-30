@@ -1,0 +1,22 @@
+{
+  "name": "encrypthtmldoc",
+  "version": "0.0.0",
+  "description": "Encrypt an HTML document using password",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OogleGlu/EncryptHTMLDoc.git"
+  },
+  "author": "OogleGlu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OogleGlu/EncryptHTMLDoc/issues"
+  },
+  "homepage": "https://github.com/OogleGlu/EncryptHTMLDoc#readme"
+}
