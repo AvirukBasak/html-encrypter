@@ -1,4 +1,4 @@
-# EncryptHTMLDoc
+# HTML Encrypter
 Encrypt an HTML document using password.
 
 ## Usage
