@@ -27,6 +27,6 @@ USAGE:
 - The output HTML file contains JavaScript code that decrypts the embedded data.
 
 ## Example
-Visit [digestive-system-passwd.html](https://github.com/OogleGlu/EncryptHTMLDoc/blob/main/examples/digestive-system-passwd.html) to see generated code.
+Visit [digestive-system-passwd.html](https://github.com/AvirukBasak/html-encrypter/blob/main/examples/digestive-system-passwd.html) to see generated code.
 
 Password to this file is `123`. Clone and open it in a browser.
